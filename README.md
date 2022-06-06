@@ -16,3 +16,6 @@ When the simulation is finished, it will send the resulting data throw Kafka usi
 There are two types of simulations:
 1. One step simulation: It will simulate al timesteps and then will send the results.
 2. Step by step: It will send result in everysingle time step, so it is like a "real time" simulation.
+
+## Architecture
+![Architecture](Images/architecture.svg)
