@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: fmi-rest-deploy
+  name: fmi-rest-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: pod-fmi-rest-deploy
+  template:
+    metadata:
+      labels:
+        name: pod-fmi-rest-deploy
+      name: fmi-rest-deploy
+    spec:
+      containers:
+      - image: localhost:5000/restapifmi
+        name: fmi-rest-deploy
+        ports:
+        - containerPort: 8001
+        imagePullPolicy: IfNotPresent
