@@ -95,7 +95,7 @@ def getData():
     if 'kafkaClusterIP' in data.keys():
         BOOTSTRAP_SERVERS = data['kafkaClusterIP']
     else:
-        BOOTSTRAP_SERVERS = ['kafka-0.kafka-headless.kafka:9092', 'kafka-1.kafka-headless.kafka:9092']
+        BOOTSTRAP_SERVERS = []
 
 
     job_manifest = {

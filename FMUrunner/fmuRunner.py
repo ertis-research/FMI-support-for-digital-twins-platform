@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 #----------  Carga de JSON de entrada  ----------#
 ##################################################
 KAFKA_DEFAULT_TOPIC = 'kafkaTopicDefault' if os.environ.get('KAFKA_TOPIC') is None else os.environ.get('KAFKA_TOPIC')
-BOOTSTRAP_SERVERS= ['kafka-0.kafka-headless.kafka:9092', 'kafka-1.kafka-headless.kafka:9092'] if os.environ.get('KAFKA_SERVER') is None else os.environ.get('KAFKA_SERVER')
+BOOTSTRAP_SERVERS= [] if os.environ.get('KAFKA_SERVER') is None else os.environ.get('KAFKA_SERVER')
 id = os.environ.get('IDejecucion')
 print(os.environ.get('REST_SERVER'))
 
