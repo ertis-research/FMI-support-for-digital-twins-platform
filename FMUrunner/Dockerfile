@@ -15,9 +15,11 @@ ENV PYTHONUNBUFFERED 1
 RUN conda create --name env
 RUN conda update conda
 RUN conda config --add channels conda-forge
-RUN conda install pyfmi
-RUN conda install flask
-RUN conda install kafka-python
+# RUN conda install pyfmi
+# RUN conda install flask
+# RUN conda install kafka-python
+COPY requirements.txt /usr/src/app
+RUN conda install --file requirements.txt
 #RUN conda install kubernetes
 
 EXPOSE 8001

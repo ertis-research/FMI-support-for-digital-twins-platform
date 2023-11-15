@@ -8,17 +8,12 @@ RUN mkdir -p FMUs
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-# set kubernetes token
-ENV KUBE_TOKEN
-# set kubernetes host
-ENV KUBE_HOST
+ENV KUBE_TOKEN eyJhbGciOiJSUzI1NiIsImtpZCI6IjBaaFJ6MEFEdWJEOTB5ZElyc2VzMHVXRGZ4cTNiODZFMmQxT2gycGtQWG8ifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrOHNhZG1pbi10b2tlbi1mcmtqNSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrOHNhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImQxYzU3MGY2LTE2NjAtNGE2Yi05NWRmLTM2MTUwYmQzNjUzZCIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprOHNhZG1pbiJ9.IiJOXMkZyakDFVGjnmBz7xVIfU9Y7lW7XX-yMrNPo8Rrdh6p61hsVNHf6wgQQQznCHMbEuGOmnYlYCWzrG_xSykLRDhBWExCBI-SCqSs9_VqKrDGQ1Tlf6n_xkKW4LbRzS03E_t_UOioqIiMOSgmZLvXTSADVG9kW3G9dLhmQeka19qcMiukPmH77CBXQVqSQPTWWy26IoC6tkMdZTOr4_lt5z5Bh0j3W3ZFKjuGFrMHDFuGubsaIeYd2sOV-PEldwfBO3tnC9g2cRlVU_tVDGaCVThIkPTe1LrGU2QH0SJYChvSIx2eHETMDtxDAms_RiIOv69CTe-QZapW9RkI9A
+ENV KUBE_HOST https://10.10.32.10:6443
 
 # install dependencies
-RUN pip install --upgrade pip
-RUN pip install kubernetes
-RUN pip install flask
-RUN pip install waitress
-
+COPY requirements.txt /usr/src/app
+RUN pip3 install -r requirements.txt
 # copy project
 COPY . /usr/src/app/
 
@@ -26,3 +21,7 @@ EXPOSE 8001
 
 RUN chmod +x ./start.sh
 CMD ["./start.sh"]
+
+
+
+

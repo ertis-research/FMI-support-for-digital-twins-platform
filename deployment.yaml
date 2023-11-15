@@ -16,7 +16,7 @@ spec:
       name: fmi-rest-deploy
     spec:
       containers:
-      - image: localhost:5000/restapifmi
+      - image: localhost:5000/restapi
         name: fmi-rest-deploy
         ports:
         - containerPort: 8001
