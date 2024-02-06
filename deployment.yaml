@@ -18,6 +18,17 @@ spec:
       containers:
       - image: localhost:5000/restapi
         name: fmi-rest-deploy
+        env:
+        - name: BOOSTRAP_SERVERS
+          value: []
+        - name: SERVICE_NAME
+          value: fmi-rest-deploy
+        - name: SERVICE_PORT
+          value: "7999"
+        - name: KUBE_HOST
+          value: ""
+        - name: KUBE_TOKEN
+          value: ""
         ports:
         - containerPort: 8001
         imagePullPolicy: IfNotPresent

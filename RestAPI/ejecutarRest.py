@@ -7,7 +7,9 @@ import os
 
 from urllib3 import HTTPResponse
 
-
+BOOTSTRAP_SERVERS = os.environ.get('BOOTSTRAP_SERVERS')
+SERVICE_NAME = os.environ.get('SERVICE_NAME')
+SERVICE_PORT = int(os.environ.get('SERVICE_PORT'))
 
 
 def kubernetes_config( token=None, external_host=None ):
@@ -18,7 +20,7 @@ def kubernetes_config( token=None, external_host=None ):
         will be for your local machine.
         Parameters:
             str: token 
-            str: external_host (e.g. "https://192.168.65.3:6443")
+            str: external_host
         Return:
             Kubernetes API client
     """
@@ -93,9 +95,9 @@ def getData():
     
     
     if 'kafkaClusterIP' in data.keys():
-        BOOTSTRAP_SERVERS = data['kafkaClusterIP']
+        kafka_cluster = data['kafkaClusterIP']
     else:
-        BOOTSTRAP_SERVERS = []
+        kafka_cluster = BOOTSTRAP_SERVERS
 
 
     job_manifest = {
@@ -109,11 +111,11 @@ def getData():
             'template' : {
                 'spec': {
                     'containers': [{
-                        'image': "10.10.32.232:30501/fmurunner", 
+                        'image': "ertis/opentwins-fmu-runner", 
                         'name': 'fmurunner-'+kafkaTopic+id,
                         'env': [{'name': 'KAFKA_TOPIC', 'value': kafkaTopic},
-                                {'name': 'KAFKA_SERVER', 'value': BOOTSTRAP_SERVERS},
-                                {'name': 'REST_SERVER', 'value': 'http://fmi-rest-deploy:7999'},
+                                {'name': 'KAFKA_SERVER', 'value': kafka_cluster},
+                                {'name': 'REST_SERVER', 'value': 'http://{}:{}'.format(SERVICE_NAME, SERVICE_PORT)},
                                 {'name': 'START_TIME', 'value': start_time},
                                 {'name': 'END_TIME', 'value': final_time},
                                 {'name': 'TIME_JUMP', 'value': time_jump},
